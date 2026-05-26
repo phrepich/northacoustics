@@ -1,0 +1,143 @@
+# ============================================================================
+# NORTHACOUSTICS - .gitignore
+# Prevent committing sensitive files, build outputs, and system files
+# ============================================================================
+
+# ============================================================================
+# ENVIRONMENT VARIABLES - CRITICAL: NEVER COMMIT SECRETS
+# ============================================================================
+.env
+.env.local
+.env.*.local
+.env.production.local
+.env.test.local
+.env.development.local
+.env.staging.local
+
+# ============================================================================
+# DEPENDENCIES
+# ============================================================================
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.pnpm-debug.log*
+
+# ============================================================================
+# BUILD OUTPUTS & DIST
+# ============================================================================
+dist/
+build/
+out/
+.next/
+.expo/
+.expo-shared/
+*.tsbuildinfo
+web-build/
+
+# ============================================================================
+# VERCEL & DEPLOYMENT
+# ============================================================================
+.vercel/
+.vercel
+
+# ============================================================================
+# EAS BUILD & EXPO
+# ============================================================================
+.eas/
+.easignore
+dist-eas/
+eas-build-*
+*.apk
+*.aab
+*.ipa
+*.app
+expo-env.d.ts
+.expo-shared/
+
+# Native
+.kotlin/
+*.orig.*
+ios/
+android/
+
+# ============================================================================
+# CACHE & TEMPORARY FILES
+# ============================================================================
+.cache/
+.eslintcache
+.turbo/
+dist-tmp/
+*.log
+logs/
+*.swp
+*.swo
+*~
+.metro-health-check*
+
+# ============================================================================
+# IDE & EDITOR
+# ============================================================================
+.vscode/
+.idea/
+.sublime-project
+.sublime-workspace
+.vim/
+*.code-workspace
+
+# ============================================================================
+# OS FILES
+# ============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ============================================================================
+# KEYS, CERTIFICATES & SECRETS - NEVER COMMIT THESE
+# ============================================================================
+*.pem
+*.key
+*.pfx
+*.p12
+*.p8
+*.crt
+*.cer
+*.cert
+*.pub
+*.jks
+*.keystore
+*.mobileprovision
+private.key
+private_key
+secret*
+*.private
+.ssh/
+service-account.json
+*-adminsdk-*.json
+firebase-adminsdk-*.json
+google-services.json
+GoogleService-Info.plist
+credentials.json
+
+# ============================================================================
+# SUPABASE & DATABASE
+# ============================================================================
+.supabase/
+supabase/migrations/
+*.db
+*.sqlite
+*.sqlite3
+
+# ============================================================================
+# DEBUG & LOGS
+# ============================================================================
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+lerna-debug.log*
