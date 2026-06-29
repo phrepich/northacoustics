@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  --cq-obsidian: #0f1318;
+  --cq-graphite: #161d24;
+  --cq-petrol: #123b43;
+  --cq-petrol-deep: #0c2a30;
+  --cq-copper: #b88a57;
+  --cq-copper-soft: #d8bb97;
+  --cq-steel: #7b8792;
+  --cq-line: #d4d9df;
+  --cq-paper: #f3f4f6;
+  --cq-surface: #ffffff;
+}
+
+@theme inline {
+  --color-cq-obsidian: var(--cq-obsidian);
+  --color-cq-graphite: var(--cq-graphite);
+  --color-cq-petrol: var(--cq-petrol);
+  --color-cq-petrol-deep: var(--cq-petrol-deep);
+  --color-cq-copper: var(--cq-copper);
+  --color-cq-copper-soft: var(--cq-copper-soft);
+  --color-cq-steel: var(--cq-steel);
+  --color-cq-line: var(--cq-line);
+  --color-cq-paper: var(--cq-paper);
+  --color-cq-surface: var(--cq-surface);
+  --font-sans: "Manrope", "Aptos", "Segoe UI Variable", "Segoe UI", sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-cq-paper font-sans text-cq-graphite antialiased;
+    background-image:
+      linear-gradient(180deg, rgba(15, 19, 24, 0.02) 0%, rgba(15, 19, 24, 0.08) 100%),
+      radial-gradient(circle at top left, rgba(18, 59, 67, 0.14), transparent 32%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.88), rgba(243, 244, 246, 0.92));
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  ::selection {
+    background: rgba(184, 138, 87, 0.22);
+  }
+}
+
+@layer components {
+  .cq-shell {
+    @apply mx-auto w-full max-w-7xl px-5 md:px-8;
+  }
+
+  .cq-section {
+    @apply py-14 md:py-20;
+  }
+
+  .cq-panel {
+    @apply rounded-[30px] border border-cq-line/90 bg-cq-surface shadow-[0_26px_70px_rgba(15,19,24,0.08)];
+  }
+
+  .cq-panel-dark {
+    @apply rounded-[30px] border border-white/10 bg-cq-obsidian text-white shadow-[0_32px_100px_rgba(15,19,24,0.34)];
+  }
+
+  .cq-overline {
+    @apply text-xs font-semibold uppercase tracking-[0.34em] text-cq-copper;
+  }
+
+  .cq-section-title {
+    @apply max-w-4xl text-3xl font-semibold tracking-[-0.05em] text-cq-graphite md:text-5xl;
+  }
+
+  .cq-copy {
+    @apply text-base leading-8 text-cq-steel md:text-lg;
+  }
+
+  .cq-button-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-cq-copper px-6 py-3 text-sm font-semibold text-cq-obsidian shadow-[0_18px_40px_rgba(184,138,87,0.24)] transition hover:bg-cq-copper-soft;
+  }
+
+  .cq-button-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-white/16 bg-white/6 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:border-white/28 hover:bg-white/10;
+  }
+
+  .cq-button-ghost {
+    @apply inline-flex items-center justify-center rounded-full border border-cq-line bg-white px-6 py-3 text-sm font-semibold text-cq-graphite transition hover:border-cq-copper hover:text-cq-petrol;
+  }
+
+  .cq-gridline {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 52px 52px;
+  }
+
+  .cq-technical-grid {
+    background-image:
+      linear-gradient(to right, rgba(15, 19, 24, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 19, 24, 0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .cq-card-hover {
+    @apply transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_90px_rgba(15,19,24,0.12)];
+  }
+}

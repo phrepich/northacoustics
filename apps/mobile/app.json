@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Northacoustics Field",
+    "slug": "northacoustics-field",
+    "scheme": "northacoustics-field",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#E8EFF1",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#E8EFF1"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-location",
+      "expo-image-picker"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      }
+    }
+  }
+}
+
