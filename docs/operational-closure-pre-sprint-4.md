@@ -2,13 +2,20 @@
 
 Fecha: 2026-06-29
 
-Estado: bloqueado. No se autoriza Sprint 4.
+Estado: bloqueado por Supabase. No se autoriza Sprint 4.
 
 ## Resumen
 
-Sprint 3 esta cerrado tecnicamente, pero el cierre operativo previo a Sprint 4 no puede completarse desde este entorno porque no existe conexion configurada a Supabase ni repositorio Git valido para NorthAcoustics.
+Sprint 3 esta cerrado tecnicamente, pero el cierre operativo previo a Sprint 4 no puede completarse porque no existe conexion configurada a Supabase ni credenciales reales disponibles para aplicar migraciones y ejecutar la prueba operacional offline/online.
 
 No se aplico la migracion `0003_offline_first_sync_engine.sql` en Supabase remoto. No se ejecuto prueba real offline/online contra backend productivo.
+
+Git ya fue recuperado en una copia limpia del repositorio oficial:
+
+- Ruta: `C:\Users\phrep\northacoustics-production`
+- Remote: `https://github.com/phrepich/northacoustics.git`
+- Rama: `release/production-baseline`
+- Commit base publicado: `f201b59 chore: prepare NorthAcoustics production baseline`
 
 ## Migracion 0003
 
@@ -29,8 +36,10 @@ Motivo:
 
 - No hay `SUPABASE_ACCESS_TOKEN`.
 - No hay `supabase/config.toml`.
+- No hay metadata local `.supabase`.
+- No hay project ref confirmado para staging o produccion.
 - `npx supabase migration list` retorna: `Cannot find project ref. Have you run supabase link?`
-- `npx supabase projects list` requiere login/token.
+- `npx supabase projects list` y `npx supabase status` no entregan informacion util desde este entorno sin sesion/proyecto configurado.
 - No hay variables reales `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` ni `SUPABASE_SERVICE_ROLE_KEY`; solo existen placeholders en `.env.example`.
 
 ## Validacion Supabase
@@ -79,36 +88,36 @@ Flujo pendiente:
 
 Estado:
 
-- No operativo para NorthAcoustics.
+- Operativo.
 
 Evidencia:
 
-- `git rev-parse --show-toplevel` falla en la raiz.
-- La carpeta `.git` raiz existe como placeholder/reparse point de OneDrive, pero no funciona como repositorio Git.
-- Se detectaron repositorios en subcarpetas ajenas.
-- El remote visible apunta a `https://github.com/phrepich/thakhi-web.git`, que corresponde a THAKHI, no a NorthAcoustics.
-
-No se inicializo Git y no se creo commit para evitar generar historial incorrecto.
+- Repositorio limpio en `C:\Users\phrep\northacoustics-production`.
+- Rama activa: `release/production-baseline`.
+- Remote: `https://github.com/phrepich/northacoustics.git`.
+- Commit publicado: `f201b59 chore: prepare NorthAcoustics production baseline`.
+- Working tree limpio al iniciar este cierre operativo.
 
 ## Validaciones locales ejecutadas
 
 | Validacion | Resultado |
 | --- | --- |
-| `npx supabase --version` | OK: `2.108.0`. |
-| `npx supabase migration list` | Bloqueado: proyecto no vinculado. |
+| `npx supabase --version` | No concluyente en esta ejecucion: comando expiro desde `npx`; validar con CLI local o token configurado. |
+| `npx supabase status` | No concluyente: comando expiro sin proyecto local iniciado/linkeado. |
+| `npx supabase projects list` | No concluyente: comando expiro sin sesion/token util disponible. |
+| `npx supabase migration list` | Pendiente: requiere proyecto vinculado. |
 | `npm run typecheck` | OK en shared, mobile y web. |
 | `npm audit --audit-level=critical` | OK: 0 vulnerabilidades. |
 | Busqueda de variables Supabase reales | Solo placeholders encontrados. |
-| Revision Git | No hay repositorio NorthAcoustics operativo. |
+| Revision Git | OK: repositorio oficial operativo en rama `release/production-baseline`. |
 
 ## Errores encontrados
 
-- Supabase CLI sin login/token.
+- Supabase CLI sin login/token usable.
 - Proyecto Supabase no vinculado.
 - Sin credenciales reales para ejecutar migracion o prueba funcional.
-- Docker local no disponible para `supabase status`.
-- Git raiz invalido por placeholder/reparse point de OneDrive.
-- Remote Git encontrado no corresponde a NorthAcoustics.
+- Sin confirmacion de ambiente objetivo: staging o production.
+- Sin project ref autorizado para aplicar migraciones.
 
 ## Acciones correctivas requeridas
 
@@ -123,10 +132,9 @@ Para aplicar la migracion:
    - `EXPO_PUBLIC_SUPABASE_ANON_KEY`
    - usuario/password de prueba
    - confirmacion de buckets Storage requeridos
-3. Resolver Git:
-   - indicar ruta del repositorio correcto de NorthAcoustics, o
-   - autorizar explicitamente inicializar Git en esta carpeta, o
-   - proporcionar remote GitHub correcto.
+3. Confirmar ambiente objetivo:
+   - staging recomendado para primera aplicacion de `0003`.
+   - produccion solo despues de validar staging.
 
 ## Estado final
 
@@ -139,8 +147,8 @@ Criterios no cumplidos:
 - Datos sincronizados en Supabase: no verificado.
 - Fotografias sincronizadas: no verificado.
 - Telemetria visible contra backend real: no verificado.
-- Git operativo o decision documentada: decision documentada como pendiente; Git no operativo.
+- Git operativo o decision documentada: si, Git operativo.
 
 Condicion para reabrir cierre operativo:
 
-- Proporcionar acceso Supabase y decision Git. Con eso se debe aplicar `0003`, ejecutar la prueba real y recien despues evaluar autorizacion de Sprint 4.
+- Proporcionar acceso Supabase, project ref y ambiente objetivo. Con eso se debe aplicar `0003`, ejecutar la prueba real y recien despues evaluar autorizacion de Sprint 4.
